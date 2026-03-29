@@ -54,6 +54,7 @@ import TeammateReview from './pages/Student Teams/TeammateReview';
 import SignupSheet from 'components/SignupSheet/SignupSheet';
 import PartnerAdvertisements from 'components/SignupSheet/PartnerAdvertisements';
 import ReviewReportPage from "./pages/Reviews/ReviewReportPage";
+import AssignmentEditPage from "pages/Assignments/AssignmentEditPage";
 function App() {
   const router = createBrowserRouter([
     {
@@ -76,7 +77,7 @@ function App() {
 
         {
           path: "assignments/edit/:id",
-          element: <AssignmentEditor mode="update" />,
+          element: <AssignmentEditPage mode="update" />,
           loader: loadAssignment,
         },
         {
@@ -125,7 +126,7 @@ function App() {
 
         {
           path: "assignments/new",
-          element: <AssignmentEditor mode="create" />,
+          element: <AssignmentEditPage mode="create" />,
           loader: loadAssignment,
         },
 
