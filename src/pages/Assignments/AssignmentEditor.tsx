@@ -802,6 +802,8 @@ const AssignmentEditor: React.FC<IEditor> = ({ mode }) => {
                       { label: "Review Strategy 1", value: 1 },
                       { label: "Review Strategy 2", value: 2 },
                       { label: "Review Strategy 3", value: 3 },
+                      { label: "Review Strategy 4", value: 4 },
+                      { label: "Review Strategy 5", value: 5 },
                     ]}
                   />
                 </div>

@@ -1,3 +1,4 @@
+import FormCheckbox from "components/Form/FormCheckBox";
 import { Col, Row } from "react-bootstrap";
 
 const RubricsTab = () => {
@@ -8,6 +9,8 @@ const RubricsTab = () => {
           <h4>Rubrics Section</h4>
           <p>This section will be implemented later.</p>
         </div>
+
+
       </Col>
     </Row>
   );
