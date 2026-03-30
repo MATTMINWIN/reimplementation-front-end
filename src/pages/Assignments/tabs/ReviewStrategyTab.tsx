@@ -14,6 +14,7 @@ interface ReviewStrategyTabProps {
   initialIsReviewRoleBased?: boolean;
   initialIsReviewDoneByTeams?: boolean;
   initialIsImportingSpreadsheet?: boolean;
+  initialAssignmentSpreadsheet?: File | null;
   onSave?: (payload: {
     review_assignment_strategy: string;
     num_reviews_required: number;
@@ -44,6 +45,7 @@ const ReviewStrategyTab = ({
   initialIsSelfReviewsRequired = false,
   initialIsReviewRoleBased = false,
   initialIsReviewDoneByTeams = false,
+  initialAssignmentSpreadsheet = null,
   onSave,
   isSaving = false,
 }: ReviewStrategyTabProps) => {
@@ -56,6 +58,7 @@ const ReviewStrategyTab = ({
   const [isReviewRoleBased, setIsReviewRoleBased] = useState<boolean>(initialIsReviewRoleBased);
   const [isReviewDoneByTeams, setIsReviewDoneByTeams] = useState<boolean>(initialIsReviewDoneByTeams);
   const [staticStrategy, setStaticStrategy] = useState<string>("");
+  const [uploadedSpreadsheet, setUploadedSpreadSheet] = useState<File | null>(initialAssignmentSpreadsheet);
 
   useEffect(() => {
     setReviewStrategy(normalizeStrategy(initialStrategy));
@@ -66,6 +69,7 @@ const ReviewStrategyTab = ({
     setIsSelfReviewsRequired(initialIsSelfReviewsRequired);
     setIsReviewRoleBased(initialIsReviewRoleBased);
     setIsReviewDoneByTeams(initialIsReviewDoneByTeams);
+    setUploadedSpreadSheet(initialAssignmentSpreadsheet);
   }, [
     initialStrategy,
     initialRequiredReviews,
@@ -75,6 +79,7 @@ const ReviewStrategyTab = ({
     initialIsSelfReviewsRequired,
     initialIsReviewRoleBased,
     initialIsReviewDoneByTeams,
+    initialAssignmentSpreadsheet,
   ]);
 
   const isDynamic = reviewStrategy === "Dynamic";
@@ -208,10 +213,16 @@ const ReviewStrategyTab = ({
                 <div className="mb-3" style={{ display: "grid", gridTemplateColumns: "max-content 200px", alignItems: "center", columnGap: "10px", rowGap: "10px" }}>
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>Import Spreadsheet Here:</Form.Label>
-                    <Form.Control type="file" />
+                    <Form.Control type="file" 
+                    onChange={(event) => {
+                      const file = event.target.files?.[0] || null;
+                      setUploadedSpreadSheet(file);
+                    }}/>
                   </Form.Group>
                 </div>
                 
+                <Form.Label>Uploaded Spreadsheet: {uploadedSpreadsheet?.name || "No File Attached"} </Form.Label>
+
               </>
             )}
 
@@ -321,7 +332,16 @@ const ReviewStrategyTab = ({
           </div>
         )}
 
-        {!isDynamic 
+        {!isDynamic && (
+          <>
+            <div className="mt-3">
+              <Button
+                variant="outline-secondary">
+                Assign reviewers
+              </Button>
+            </div>
+          </>
+        ) 
         
         }
       </Col>
